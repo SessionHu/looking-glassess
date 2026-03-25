@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LookingGlassess</title>
+  <style>
+    :root { --bg: #1e1e1e; --fg: #d4d4d4; --accent: #007acc; }
+    body { background: var(--bg); color: var(--fg); font-family: monospace; margin: 20px; }
+    .container { max-width: 900px; margin: 0 auto; }
+    .panel { border: 1px solid #444; padding: 15px; border-radius: 4px; margin-bottom: 20px; }
+    .input-group { margin-bottom: 10px; display: flex; gap: 10px; align-items: center; }
+    input, select, button { 
+      background: #333; border: 1px solid #555; color: #fff; padding: 5px 10px; 
+      border-radius: 2px; outline: none;
+    }
+    button { cursor: pointer; background: var(--accent); border: none; }
+    button:hover { filter: brightness(1.1); }
+    button:disabled { background: #555; cursor: not-allowed; }
+    #output { 
+      background: #000; border: 1px solid #333; padding: 15px; font-size: 14px;
+      white-space: pre-wrap; overflow-x: auto; min-height: 300px; line-height: 1.2;
+    }
+    .loading { color: #eab308; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>LookingGlassess 🌿</h2>
+    <div class="panel">
+      <div class="input-group">
+        <select id="action" onchange="toggleInputs()">
+          <option value="ping">Ping</option>
+          <option value="trace">Traceroute</option>
+          <option value="kroute">Kernel Route</option>
+          <option value="broute">BIRD Route</option>
+          <option value="proto">BIRD Protocols</option>
+          <option value="dig">DiG</option>
+        </select>
+        <input type="text" id="target">
+        <select id="ipv">
+          <option value="">Auto (IPv4/6)</option>
+          <option value="4">IPv4</option>
+          <option value="6">IPv6</option>
+        </select>
+      </div>
+      <div class="input-group">
+        <label><input type="checkbox" id="all_info"> All</label>
+        <select id="proto_type" style="display:none;">
+          <option value="">Default (UDP)</option>
+          <option value="icmp">ICMP</option>
+        </select>
+        <button id="run-btn" onclick="runQuery()">Run</button>
+      </div>
+    </div>
+
+    <div id="output">Something will happen...</div>
+  </div>
+
+  <script>
+    function toggleInputs() {
+      const action = document.getElementById('action').value;
+      document.getElementById('proto_type').style.display = (action === 'trace') ? 'inline' : 'none';
+      document.getElementById('all_info').parentElement.style.display = 
+        (action === 'broute' || action === 'proto') ? 'inline' : 'none';
+      document.getElementById('ipv').style.display = action !== 'dig' && action !== 'proto' && action != 'broute' ? 'block' : 'none';
+    }
+    async function runQuery() {
+      const btn = document.getElementById('run-btn');
+      const out = document.getElementById('output');
+      const action = document.getElementById('action').value;
+      const target = document.getElementById('target').value;
+      const params = new URLSearchParams({
+        action: action,
+        ipv: document.getElementById('ipv').value,
+        hst: target,
+        dst: target,
+        list: target,
+        all: document.getElementById('all_info').checked
+      });
+      btn.disabled = true;
+      out.innerHTML = '<span class="loading">Running...</span>';
+      try {
+        const response = await fetch(`/cgi-bin/lgmain?${params.toString()}`);
+        const text = await response.text();
+        if (!response.ok) throw new Error(`HTTP Error: ${response.status}`);
+        out.textContent = text;
+      } catch (err) {
+        out.innerHTML = `<span style="color: #ef4444;">Error: ${err.message}</span>`;
+      } finally {
+        btn.disabled = false;
+      }
+    }
+    toggleInputs();
+  </script>
+</body>
+</html>
