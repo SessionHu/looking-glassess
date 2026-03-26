@@ -12,12 +12,12 @@ DFLAGS = -Isrc -g
 endif
 
 BUILD = build
-DIST = cgi-bin
+DIST = dist
 SRC = src
 
-all: ${DIST}/lgmain
+all: ${DIST}/cgi-bin/lgmain ${DIST}/index.html
 
-${DIST}/lgmain: ${BUILD}/lgmain.o ${BUILD}/ping.o ${BUILD}/trace.o ${BUILD}/kroute.o ${BUILD}/proto.o ${BUILD}/broute.o ${BUILD}/dig.o | ${DIST}
+${DIST}/cgi-bin/lgmain: ${BUILD}/lgmain.o ${BUILD}/ping.o ${BUILD}/trace.o ${BUILD}/kroute.o ${BUILD}/proto.o ${BUILD}/broute.o ${BUILD}/dig.o | ${DIST}/cgi-bin
 	$(DC) $(DFLAGS) $^ -of=$@
 ifeq ($(RELEASE),1)
 	strip $@
@@ -29,13 +29,23 @@ ${BUILD}/%.o: ${SRC}/%.d | ${BUILD}
 ${BUILD}/%.o: ${SRC}/%.c | ${BUILD}
 	$(CC) $(CFLAGS) -c $< -o $@
 
+${DIST}/index.html: ${SRC}/index.html
+	cp $< $@
+
 ${BUILD}:
-	mkdir $@
+	mkdir -p $@
 
 ${DIST}:
-	mkdir $@
+	mkdir -p $@
+
+${DIST}/cgi-bin:
+	mkdir -p $@
 
 clean:
 	rm -rf ${BUILD} ${DIST}
+
+setsuid: ${DIST}/cgi-bin/lgmain
+	chown bird $<
+	chmod +s $<
 
 .PHONY: all clean

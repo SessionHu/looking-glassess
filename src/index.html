@@ -19,7 +19,7 @@
     button:disabled { background: #555; cursor: not-allowed; }
     #output { 
       background: #000; border: 1px solid #333; padding: 15px; font-size: 14px;
-      white-space: pre-wrap; overflow-x: auto; min-height: 300px; line-height: 1.2;
+      overflow-x: auto; min-height: 300px; line-height: 1.2;
     }
     .loading { color: #eab308; }
   </style>
@@ -37,7 +37,7 @@
           <option value="proto">BIRD Protocols</option>
           <option value="dig">DiG</option>
         </select>
-        <input type="text" id="target">
+        <input type="text" id="target"  placeholder="Target">
         <select id="ipv">
           <option value="">Auto (IPv4/6)</option>
           <option value="4">IPv4</option>
@@ -54,7 +54,7 @@
       </div>
     </div>
 
-    <div id="output">Something will happen...</div>
+    <pre id="output">Something will happen...</pre>
   </div>
 
   <script>
@@ -73,9 +73,7 @@
       const params = new URLSearchParams({
         action: action,
         ipv: document.getElementById('ipv').value,
-        hst: target,
-        dst: target,
-        list: target,
+        target,
         all: document.getElementById('all_info').checked
       });
       btn.disabled = true;

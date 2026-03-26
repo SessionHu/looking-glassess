@@ -37,22 +37,22 @@ int main() {
   auto queries = getQueries();
   switch (queries.get("action", "")) {
     case "ping":
-      ping(queries.get("dst", ""), queries.get("ipv", ""));
+      ping(queries.get("target", ""), queries.get("ipv", ""));
       break;
     case "trace":
-      trace(queries.get("hst", ""), queries.get("ipv", ""), queries.get("proto", ""));
+      trace(queries.get("target", ""), queries.get("ipv", ""), queries.get("proto", ""));
       break;
     case "kroute":
-      kroute(queries.get("dst", ""), queries.get("ipv", ""));
+      kroute(queries.get("target", ""), queries.get("ipv", ""));
       break;
     case "proto":
-      proto(queries.get("all", "") == "true", queries.get("name", ""));
+      proto(queries.get("all", "") == "true", queries.get("target", ""));
       break;
     case "broute":
-      broute(queries.get("all", "") == "true", queries.get("dst", ""));
+      broute(queries.get("all", "") == "true", queries.get("target", ""));
       break;
     case "dig":
-      dig(queries.get("list", ""));
+      dig(queries.get("target", ""));
       break;
     default:
       stdout.write("Status: 404 Not Found\r\n");
