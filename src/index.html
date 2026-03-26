@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LookingGlassess</title>
   <style>
-    :root { --bg: #1e1e1e; --fg: #d4d4d4; --accent: #007acc; }
+    :root { --bg: #1e1e1e; --fg: #f0f0f0; --accent: #007acc; color-scheme: dark; }
     body { background: var(--bg); color: var(--fg); font-family: monospace; margin: 20px; }
     .container { max-width: 900px; margin: 0 auto; }
     .panel { border: 1px solid #444; padding: 15px; border-radius: 4px; margin-bottom: 20px; }
@@ -25,8 +25,16 @@
   </style>
 </head>
 <body>
-  <div class="container">
-    <h2>LookingGlassess 🌿</h2>
+  <main class="container">
+    <header>
+      <h1>LookingGlassess 🌿</h1>
+      <nav>
+        <a href="https://lg.antarctica-gateway.sess.dn42/">Antarctica Gateway</a> |
+        <a href="https://lg.ne-homeidc.sess.dn42/">NE HomeIDC</a> |
+        <a href="https://lg.mmpproto.sess.dn42/">MMP Proto</a> |
+        <a href="https://lg.ne-e2-goog.sess.dn42/">NE E2 Google</a>
+      </nav>
+    </header>
     <div class="panel">
       <div class="input-group">
         <select id="action" onchange="toggleInputs()">
@@ -53,10 +61,9 @@
         <button id="run-btn" onclick="runQuery()">Run</button>
       </div>
     </div>
-
     <pre id="output">Something will happen...</pre>
-  </div>
-
+    <footer>(C) 2026 SESS.DN42 LookingGlassess</footer>
+  </main>
   <script>
     function toggleInputs() {
       const action = document.getElementById('action').value;
