@@ -48,4 +48,7 @@ setsuid: ${DIST}/cgi-bin/lgmain
 	chown bird $<
 	chmod +s $<
 
-.PHONY: all clean
+package: all
+	tar --zstd -cvf lgs.tar.zst dist Makefile
+
+.PHONY: all clean setsuid package
