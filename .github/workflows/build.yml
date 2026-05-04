@@ -38,10 +38,8 @@ jobs:
           target: exporter
           outputs: type=local,dest=./dist/${{ matrix.arch_name }}
 
-      - name: Move file
-        run: |
-          mv ./dist/${{ matrix.arch_name }}/lgs.tar.zst ./dist/lgs-${{ matrix.arch_name }}.tar.zst
-          rmdir ./dist/${{ matrix.arch_name }}
+      - name: Copy file
+        run: mv ./dist/${{ matrix.arch_name }}/lgs.tar.zst ./dist/lgs-${{ matrix.arch_name }}.tar.zst
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v7
