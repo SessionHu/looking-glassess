@@ -38,9 +38,14 @@ jobs:
           target: exporter
           outputs: type=local,dest=./dist/${{ matrix.arch_name }}
 
+      - name: Move file
+        run: |
+          mv ./dist/${{ matrix.arch_name }}/lgs.tar.zst ./dist/lgs-${{ matrix.arch_name }}.tar.zst
+          rmdir ./dist/${{ matrix.arch_name }}
+
       - name: Upload Artifact
         uses: actions/upload-artifact@v7
         with:
           name: lgs-package-${{ matrix.arch_name }}
-          path: ./dist/${{ matrix.arch_name }}/lgs.tar.zst
+          path: ./dist/lgs-${{ matrix.arch_name }}.tar.zst
           archive: false

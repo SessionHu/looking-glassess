@@ -1,6 +1,6 @@
 DC = $(shell command -v ldc2 || command -v dmd)
 ifeq ($(DC),)
-$(error "No D compiler found. Please install LDC or DMD first! GDC is not supported yet.")
+$(warning "No D compiler found. Please install LDC or DMD first! GDC is not supported yet.")
 endif
 
 ifeq ($(RELEASE),1)
@@ -44,7 +44,7 @@ ${DIST}/cgi-bin:
 clean:
 	rm -rf ${BUILD} ${DIST}
 
-setsuid: | ${DIST}/cgi-bin/lgmain
+setsuid:
 	chown bird $|
 	chmod +s $|
 
