@@ -29,7 +29,7 @@ ${BUILD}/%.o: ${SRC}/%.d | ${BUILD}
 ${BUILD}/%.o: ${SRC}/%.c | ${BUILD}
 	$(CC) $(CFLAGS) -c $< -o $@
 
-${DIST}/index.html: ${SRC}/index.html
+${DIST}/index.html: ${SRC}/index.html | ${DIST}
 	cp $< $@
 
 ${BUILD}:
