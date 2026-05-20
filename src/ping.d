@@ -1,5 +1,6 @@
 import std.process : execv;
 import std.stdio : stdout;
+import std.system : OS, os;
 
 void ping(string dst, string ipv) {
   auto cmd = ["ping", "-c4"];
@@ -8,5 +9,9 @@ void ping(string dst, string ipv) {
   stdout.write("content-type: text/plain\r\n");
   stdout.write("\r\n");
   stdout.flush();
-  execv("/usr/bin/ping", cmd);
+  if (os == OS.linux || os == OS.android) {
+    execv("/usr/bin/ping", cmd);
+  } else {
+    execv("/sbin/ping", cmd);
+  }
 }

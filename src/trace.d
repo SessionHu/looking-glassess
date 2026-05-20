@@ -1,5 +1,6 @@
 import std.process : execv;
 import std.stdio : stdout;
+import std.system : OS, os;
 
 void trace(string hst, string ipv, string proto) {
   auto cmd = ["traceroute"];
@@ -9,5 +10,9 @@ void trace(string hst, string ipv, string proto) {
   stdout.write("content-type: text/plain\r\n");
   stdout.write("\r\n");
   stdout.flush();
-  execv("/usr/bin/traceroute", cmd);
+  static if (os == OS.android) {
+    execv("/data/data/com.termux/files/usr/bin/traceroute", cmd);
+  } else {
+    execv("/usr/sbin/traceroute", cmd);
+  }
 }

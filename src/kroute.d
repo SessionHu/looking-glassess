@@ -1,12 +1,12 @@
 import std.process : execv;
 import std.stdio : stdout;
-
+import std.system : OS, os;
 
 void kroute(string dst, string ipv) {
   stdout.write("content-type: text/plain\r\n");
   stdout.write("\r\n");
   stdout.flush();
-  version (linux) version (Android) {
+  static if (os == OS.linux || os == OS.android) {
     auto cmd = ["ip"];
     if (ipv == "4" || ipv == "6") cmd ~= ["-" ~ ipv];
     cmd ~= ["route"];

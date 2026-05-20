@@ -2,6 +2,7 @@ import std.array : array;
 import std.process : execv;
 import std.regex : ctRegex, match, splitter;
 import std.stdio : stdout;
+import std.system : OS, os;
 
 void dig(string list) {
   if (list.match(ctRegex!r"^(.+\s)?-[^\s]*(f|k).*$")) {
@@ -13,5 +14,10 @@ void dig(string list) {
   stdout.write("content-type: text/plain\r\n");
   stdout.write("\r\n");
   stdout.flush();
-  execv("/usr/bin/dig", ["dig"] ~ list.splitter(ctRegex!r"(\s|\+)+").array());
+  const cmd = ["dig"] ~ list.splitter(ctRegex!r"(\s|\+)+").array();
+  static if (os == OS.linux) {
+    execv("/usr/bin/dig", cmd);
+  } else {
+    execv("/usr/local/bin/dig", cmd);
+  }
 }
