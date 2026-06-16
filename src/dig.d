@@ -14,7 +14,7 @@ void dig(string list) {
   stdout.write("content-type: text/plain\r\n");
   stdout.write("\r\n");
   stdout.flush();
-  const cmd = ["dig"] ~ list.splitter(ctRegex!r"(\s|\+)+").array();
+  const cmd = ["dig"] ~ list.splitter(ctRegex!r"\s+").array();
   static if (os == OS.linux) {
     execv("/usr/bin/dig", cmd);
   } else {
