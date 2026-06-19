@@ -45,8 +45,8 @@ clean:
 	rm -rf ${BUILD} ${DIST}
 
 setsuid:
-	chown bird $|
-	chmod +s $|
+	chown bird ${DIST}/cgi-bin/lgmain
+	chmod +s ${DIST}/cgi-bin/lgmain
 
 package: all
 	tar --zstd -cvf lgs.tar.zst dist Makefile
