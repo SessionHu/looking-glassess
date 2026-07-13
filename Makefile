@@ -4,8 +4,8 @@ $(warning "No D compiler found. Please install LDC or DMD first! GDC is not supp
 endif
 
 ifeq ($(RELEASE),1)
-CFLAGS = -O2 -flto=full
-DFLAGS = -O2 -release -flto=full -Isrc
+CFLAGS = -O2 -flto=full -static
+DFLAGS = -O2 -release -flto=full -Isrc --static
 else
 CFLAGS = -g
 DFLAGS = -Isrc -g
