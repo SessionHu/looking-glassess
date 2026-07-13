@@ -10,7 +10,7 @@ void ping(string dst, string ipv) {
   stdout.write("\r\n");
   stdout.flush();
   if (os == OS.linux || os == OS.android) {
-    execv("/usr/bin/ping", cmd);
+    execv("/bin/ping", cmd);
   } else {
     execv("/sbin/ping", cmd);
   }

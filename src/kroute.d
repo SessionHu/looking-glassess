@@ -11,7 +11,7 @@ void kroute(string dst, string ipv) {
     if (ipv == "4" || ipv == "6") cmd ~= ["-" ~ ipv];
     cmd ~= ["route"];
     if (dst.length > 0) cmd ~= ["get", dst];
-    execv("/usr/bin/ip", cmd);
+    execv("/sbin/ip", cmd);
   } else {
     auto cmd = ["route"];
     if (ipv == "4" || ipv == "6") cmd ~= ["-" ~ ipv];

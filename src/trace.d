@@ -7,6 +7,8 @@ void trace(string hst, string ipv, string proto) {
   string[] cmd = [];
   static if (os == OS.android) {
     cmd ~= ["/data/data/com.termux/files/usr/bin/traceroute"];
+  } else if (os == OS.linux) {
+    cmd ~= ["/usr/bin/traceroute"];
   } else {
     cmd ~= ["/usr/sbin/traceroute"];
   }
@@ -20,5 +22,5 @@ void trace(string hst, string ipv, string proto) {
   stdout.write("content-type: text/plain\r\n");
   stdout.write("\r\n");
   stdout.flush();
-  execv("/bin/timeout", ["timeout", "-k10", "-sINT", "60s"] ~ cmd);
+  execv("/usr/bin/timeout", ["timeout", "-k10", "-sINT", "60s"] ~ cmd);
 }
