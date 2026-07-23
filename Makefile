@@ -3,6 +3,8 @@ ifeq ($(DC),)
 $(warning "No D compiler found. Please install LDC or DMD first! GDC is not supported yet.")
 endif
 
+M4 = m4 -P
+
 ifeq ($(RELEASE),1)
 CFLAGS = -O2 -flto=full -static
 DFLAGS = -O2 -release -flto=full -Isrc --static
@@ -29,8 +31,8 @@ ${BUILD}/%.o: ${SRC}/%.d | ${BUILD}
 ${BUILD}/%.o: ${SRC}/%.c | ${BUILD}
 	$(CC) $(CFLAGS) -c $< -o $@
 
-${DIST}/index.html: ${SRC}/index.html | ${DIST}
-	cp $< $@
+${DIST}/index.html: ${SRC}/index.html.m4 nav.m4 | ${DIST}
+	$(M4) $< > $@
 
 ${BUILD}:
 	mkdir -p $@

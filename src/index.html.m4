@@ -1,3 +1,5 @@
+m4_changequote([[,]])m4_dnl
+m4_define([[LG_INSTANCE]], [[<span><a href="$1">$2</a></span>]])m4_dnl
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,24 +24,15 @@
       overflow-x: auto; min-height: 300px; line-height: 1.2;
     }
     .loading { color: #eab308; }
+    nav > span::after { content: " | "; }
+    nav > span:last-child::after { content: unset }
   </style>
 </head>
 <body>
   <main class="container">
     <header>
       <h1>LookingGlassess 🌿</h1>
-      <nav>
-        <a href="https://lg-antarctica-gateway.sess.dn42/">Antarctica Gateway</a> |
-        <a href="https://lg.bzip9.sess.dn42/">Bzip 9</a> |
-        <a href="https://lg.chronnection.sess.dn42/">Chronnection</a> |
-        <a href="https://lg.mazarino.sess.dn42/">Mazarino</a> |
-        <a href="https://lg.netzilla.sess.dn42/">Netzilla</a> |
-        <a href="https://lg.neonled.sess.dn42/">NEON LED</a> |
-        <a href="https://lg.touhou.sess.dn42/">TouHou</a> |
-        <a href="https://lg.glaciaxion.sess.dn42/">Glaciaxion</a> |
-        <a href="https://lg.hydrogen.sess.dn42/">Hydrogen</a> |
-        <a href="https://lg.alps.sess.dn42/">Alps</a>
-      </nav>
+      <nav>m4_include([[nav.m4]])</nav>
     </header>
     <div class="panel">
       <div class="input-group">
@@ -51,7 +44,7 @@
           <option value="proto">BIRD Protocols</option>
           <option value="dig">DiG</option>
         </select>
-        <input type="text" id="target"  placeholder="Target">
+        <input type="text" id="target" placeholder="Target">
         <select id="ipv">
           <option value="">Auto (IPv4/6)</option>
           <option value="4">IPv4</option>
