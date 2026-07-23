@@ -5,6 +5,7 @@ RUN apt-get update && \
     gcc \
     ldc \
     llvm-dev \
+    m4 \
     make \
     zstd && \
     rm -rf /var/lib/apt/lists/*
