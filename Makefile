@@ -19,7 +19,7 @@ SRC = src
 
 all: ${DIST}/cgi-bin/lgmain ${DIST}/index.html
 
-${DIST}/cgi-bin/lgmain: ${BUILD}/lgmain.o ${BUILD}/ping.o ${BUILD}/trace.o ${BUILD}/kroute.o ${BUILD}/proto.o ${BUILD}/broute.o ${BUILD}/dig.o | ${DIST}/cgi-bin
+${DIST}/cgi-bin/lgmain: ${BUILD}/lgmain.o ${BUILD}/ping.o ${BUILD}/trace.o ${BUILD}/kroute.o ${BUILD}/proto.o ${BUILD}/broute.o ${BUILD}/topology.o ${BUILD}/dig.o | ${DIST}/cgi-bin
 	$(DC) $(DFLAGS) $^ -of=$@
 ifeq ($(RELEASE),1)
 	strip $@

@@ -12,6 +12,7 @@ import dig : dig;
 import kroute : kroute;
 import ping : ping;
 import proto : proto;
+import topology : topology;
 import trace : trace;
 
 string[string] getQueries() {
@@ -50,6 +51,9 @@ int main() {
       break;
     case "broute":
       broute(queries.get("all", "") == "true", queries.get("target", ""));
+      break;
+    case "topology":
+      topology(queries.get("all", "") == "true", queries.get("target", ""));
       break;
     case "dig":
       dig(queries.get("target", ""));

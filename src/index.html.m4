@@ -42,6 +42,7 @@ m4_define([[LG_INSTANCE]], [[<span><a href="$1">$2</a></span>]])m4_dnl
           <option value="kroute">Kernel Route</option>
           <option value="broute">BIRD Route</option>
           <option value="proto">BIRD Protocols</option>
+          <option value="topology">BIRD OSPF Topology</option>
           <option value="dig">DiG</option>
         </select>
         <input type="text" id="target" placeholder="Target">
@@ -69,7 +70,7 @@ m4_define([[LG_INSTANCE]], [[<span><a href="$1">$2</a></span>]])m4_dnl
       document.getElementById('proto_type').style.display = (action === 'trace') ? 'inline' : 'none';
       document.getElementById('all_info').parentElement.style.display = 
         (action === 'broute' || action === 'proto') ? 'inline' : 'none';
-      document.getElementById('ipv').style.display = action !== 'dig' && action !== 'proto' && action != 'broute' ? 'block' : 'none';
+      document.getElementById('ipv').style.display = action !== 'dig' && action !== 'proto' && action != 'broute' && action != "topology" ? 'block' : 'none';
     }
     async function runQuery() {
       const btn = document.getElementById('run-btn');
